@@ -1,0 +1,27 @@
+import nltk
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+emotions = {}
+lexicon = []
+def create_dict(filename):
+    with open(filename, encoding = 'utf8') as inp:
+            contents = inp.read()[1:]
+            lines = contents.split('\n')
+            for line in lines:
+                if '1' in line:
+                    lexicon.append(line)
+
+    lexicon_list = []  
+    for elem in lexicon:
+        step1 = elem.split('\t')
+        lexicon_list.append((step1))
+
+    for i in lexicon_list:
+        if i[1] in emotions.keys():
+            emotions[i[1]].append(i[0])
+        else:
+            emotions[i[1]]=[]
+            emotions[i[1]].append(i[0])
+    return emotions
+create_dict('nrclexicon.txt')
